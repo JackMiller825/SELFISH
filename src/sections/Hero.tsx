@@ -1,4 +1,6 @@
+import { trackCta } from '../analytics/tracker.ts'
 import { project } from '../config/project.ts'
+import { PendingLink } from '../components/PendingLink.tsx'
 import { copy } from '../content/copy.ts'
 
 export function Hero() {
@@ -54,6 +56,13 @@ export function Hero() {
           <p className="home-hook">{copy.hero.hook}</p>
           <p className="home-body">{copy.hero.body}</p>
           <div className="home-actions">
+            <PendingLink
+              url={project.buyUrl}
+              label={copy.hero.buy}
+              pendingLabel={copy.hero.buy}
+              className="btn btn-gold"
+              onActivate={() => trackCta('buy')}
+            />
             <a className="btn btn-gold home-dive" href="#story">
               {copy.hero.dive}
               <span aria-hidden="true"> ↓</span>

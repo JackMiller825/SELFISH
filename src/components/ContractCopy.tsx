@@ -38,6 +38,13 @@ export function ContractCopy() {
           {state === 'copied' ? copy.tokenomics.copied : copy.tokenomics.copy}
         </button>
         <PendingLink
+          url={project.buyUrl}
+          label={copy.hero.buy}
+          pendingLabel={copy.hero.buy}
+          className="btn btn-ghost"
+          onActivate={() => trackCta('buy')}
+        />
+        <PendingLink
           url={project.chartUrl}
           label={copy.tokenomics.chart}
           pendingLabel={copy.tokenomics.chart}

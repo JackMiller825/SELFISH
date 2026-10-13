@@ -33,8 +33,6 @@ Still unconfirmed, and shown as pending in the UI:
 - `buySellTax`
 - `liquidityStatus`
 - `ownershipStatus`
-- `buyUrl`
-- `chartUrl`
 - `telegramUrl`
 - `xUrl`
 - `telegramStickerPackUrl`
@@ -42,7 +40,7 @@ Still unconfirmed, and shown as pending in the UI:
 
 `siteUrl` is `https://selfish.website`. That origin is public. It is not a secret. The production build uses it for the canonical URL, absolute Open Graph and Twitter image URLs, `robots.txt`, and `sitemap.xml`. Set `siteUrl` to `null` to omit those absolute URLs. Do not put a placeholder domain in their place.
 
-Buy stays disabled until both a format-valid `0x` + 40 hex address and an HTTPS `buyUrl` are set. Chart, Telegram, and X enable on their own HTTPS URLs. A format-valid address is not proof that the contract is official or safe. Copy stays disabled until that format check passes, and it never copies `[CONTRACT_ADDRESS]`.
+Buy and Chart open their HTTPS URLs. Telegram and X enable on their own HTTPS URLs. The contract address is still unpublished, so Copy shows “Coming Soon..”. A format-valid address is not proof that the contract is official or safe. Copy stays disabled until that format check passes, and it never copies `[CONTRACT_ADDRESS]`.
 
 Missing facts render as `[TOKENOMICS]`. The footer keeps `PROJECT DETAILS PENDING · UNCONFIRMED LINKS ARE DISABLED.` until the four fact values and the contract, buy, chart, Telegram, and X values are all confirmed.
 

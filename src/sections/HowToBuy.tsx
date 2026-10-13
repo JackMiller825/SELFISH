@@ -1,5 +1,8 @@
 import { useEffect, useState } from 'react'
+import { trackCta } from '../analytics/tracker.ts'
+import { project } from '../config/project.ts'
 import { displayAddress } from '../config/links.ts'
+import { PendingLink } from '../components/PendingLink.tsx'
 import { copy } from '../content/copy.ts'
 import { copyText } from '../lib/copyText.ts'
 
@@ -104,6 +107,15 @@ export function HowToBuy() {
             </li>
           ))}
         </ol>
+        <div className="dive-buy">
+          <PendingLink
+            url={project.buyUrl}
+            label={copy.howToBuy.buy}
+            pendingLabel={copy.howToBuy.buy}
+            className="btn btn-gold"
+            onActivate={() => trackCta('buy')}
+          />
+        </div>
       </div>
     </section>
   )
