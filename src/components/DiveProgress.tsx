@@ -14,6 +14,17 @@ const stops = [
 export function DiveProgress() {
   const [stop, setStop] = useState<(typeof stops)[number]['id']>('home')
   const [ratio, setRatio] = useState(0)
+  const [footerVisible, setFooterVisible] = useState(false)
+
+  useEffect(() => {
+    const footer = document.getElementById('site-footer')
+    if (!footer) return
+    const observer = new IntersectionObserver(([entry]) => {
+      setFooterVisible(entry.isIntersecting)
+    })
+    observer.observe(footer)
+    return () => observer.disconnect()
+  }, [])
 
   useEffect(() => {
     let frame = 0
@@ -38,9 +49,11 @@ export function DiveProgress() {
   }, [])
 
   return (
-    <aside className="dive-progress" aria-label={copy.dive.label}>
-      <p className="dive-label">{copy.dive.label}</p>
-      <p className="dive-note">{copy.dive.note}</p>
+    <aside
+      className={footerVisible ? 'dive-progress is-hidden' : 'dive-progress'}
+      aria-label={copy.dive.label}
+      hidden={footerVisible}
+    >
       <div className="dive-track" aria-hidden="true">
         <span style={{ height: `${Math.round(ratio * 100)}%` }} />
       </div>

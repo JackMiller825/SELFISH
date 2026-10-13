@@ -226,6 +226,115 @@
   }
 }
 
+.section-story,
+.section-vault,
+.section-dive,
+.section-reef {
+  margin-top: -180px;
+  padding-top: 276px;
+  background-color: transparent;
+}
+
+.section-hero {
+  background-color: transparent;
+}
+
+.story-ocean,
+.token-ocean,
+.token-shade,
+.dive-ocean,
+.dive-shade,
+.reef-ocean,
+.reef-shade {
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0, transparent 70px, #000 130px);
+  mask-image: linear-gradient(to bottom, transparent 0, transparent 70px, #000 130px);
+}
+
+.site-footer {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 8px 28px 18px;
+  background: transparent;
+  overflow: visible;
+}
+
+.footer-brand {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.site-footer .footer-logo {
+  display: block;
+  width: 92px;
+  height: 92px;
+  object-fit: contain;
+}
+
+.footer-icon {
+  width: 48px;
+  height: 48px;
+  display: grid;
+  place-items: center;
+  color: #fff8df;
+  border-radius: 12px;
+  text-decoration: none;
+}
+
+.footer-icon:focus-visible {
+  outline: 3px solid #ffdb64;
+  outline-offset: 3px;
+}
+
+.footer-glyph {
+  width: 26px;
+  height: 26px;
+  background: currentColor;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+}
+
+.dive-progress.is-hidden,
+.dive-progress[hidden] {
+  display: none !important;
+}
+
+@media (max-width: 760px) {
+  .section-story,
+  .section-vault,
+  .section-dive,
+  .section-reef {
+    margin-top: -130px;
+    padding-top: 202px;
+  }
+
+  .story-ocean,
+  .token-ocean,
+  .token-shade,
+  .dive-ocean,
+  .dive-shade,
+  .reef-ocean,
+  .reef-shade {
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0, transparent 40px, #000 90px);
+    mask-image: linear-gradient(to bottom, transparent 0, transparent 40px, #000 90px);
+  }
+
+  .site-footer {
+    padding: 4px 16px 16px;
+  }
+
+  .site-footer .footer-logo {
+    width: 72px;
+    height: 72px;
+  }
+}
+
 @media (min-width: 1024px) {
   .reef-wrap {
     width: min(1180px, calc(100% - 64px));
