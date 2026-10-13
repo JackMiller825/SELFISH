@@ -1,14 +1,14 @@
-function copyWithSelection(value: string): boolean {
+function legacyCopy(value: string): boolean {
   const area = document.createElement('textarea')
   area.value = value
-  area.setAttribute('readonly', '')
-  area.style.position = 'fixed'
-  area.style.top = '0'
-  area.style.left = '0'
-  area.style.opacity = '0'
+  area.setAttribute('aria-hidden', 'true')
+  area.tabIndex = -1
+  area.style.cssText =
+    'position:fixed;top:0;left:0;width:2em;height:2em;padding:0;border:0;outline:none;box-shadow:none;background:transparent;font-size:16px;'
   document.body.appendChild(area)
   area.focus()
   area.select()
+  area.setSelectionRange(0, area.value.length)
   let copied = false
   try {
     copied = document.execCommand('copy')
@@ -19,16 +19,13 @@ function copyWithSelection(value: string): boolean {
   return copied
 }
 
-export async function copyText(value: string): Promise<boolean> {
-  window.focus()
-  if (copyWithSelection(value)) return true
-  try {
-    if (navigator.clipboard?.writeText) {
-      await navigator.clipboard.writeText(value)
-      return true
-    }
-  } catch {
-    return false
+export function copyText(value: string): Promise<boolean> {
+  const write = navigator.clipboard?.writeText?.bind(navigator.clipboard)
+  if (write && window.isSecureContext) {
+    return write(value).then(
+      () => true,
+      () => legacyCopy(value),
+    )
   }
-  return false
+  return Promise.resolve(legacyCopy(value))
 }

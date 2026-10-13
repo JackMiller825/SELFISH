@@ -233,6 +233,14 @@
   margin-top: -180px;
   padding-top: 276px;
   background-color: transparent;
+  pointer-events: none;
+}
+
+.story-wrap,
+.token-wrap,
+.dive-wrap,
+.reef-wrap {
+  pointer-events: auto;
 }
 
 .section-hero {
