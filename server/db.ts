@@ -167,6 +167,24 @@ export class AnalyticsDb {
         looked_up_at INTEGER NOT NULL
       )`,
     )
+    this.ensureIpHashColumn()
+  }
+
+  private ensureIpHashColumn() {
+    const columns = this.db.prepare('PRAGMA table_info(visits)').all() as { name: string }[]
+    if (!columns.some((column) => column.name === 'ip_hash')) {
+      this.db.exec('ALTER TABLE visits ADD COLUMN ip_hash TEXT')
+      this.db.exec('CREATE INDEX IF NOT EXISTS visits_ip_hash ON visits(ip_hash)')
+    }
+    const pending = this.db
+      .prepare('SELECT id, ip_cipher, ip_iv, ip_tag FROM visits WHERE ip_hash IS NULL AND ip_cipher IS NOT NULL')
+      .all() as { id: string; ip_cipher: string; ip_iv: string; ip_tag: string }[]
+    const update = this.db.prepare('UPDATE visits SET ip_hash = ? WHERE id = ?')
+    for (const row of pending) {
+      const plain = decryptIp(this.ipKey, row.ip_cipher, row.ip_iv, row.ip_tag)
+      if (!plain) continue
+      update.run(ipHash(plain), row.id)
+    }
   }
 
   private apply(id: string, sql: string) {
@@ -289,8 +307,8 @@ export class AnalyticsDb {
             .prepare(
               `INSERT INTO visits (
                 id, visitor_id, started_at, last_seen, path, section, browser, os, device,
-                referrer_host, utm_source, utm_medium, utm_campaign, ip_cipher, ip_iv, ip_tag, classification
-              ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+                referrer_host, utm_source, utm_medium, utm_campaign, ip_cipher, ip_iv, ip_tag, ip_hash, classification
+              ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
             )
             .run(
               visitId,
@@ -309,6 +327,7 @@ export class AnalyticsDb {
               encrypted?.cipher ?? null,
               encrypted?.iv ?? null,
               encrypted?.tag ?? null,
+              input.ip ? ipHash(input.ip) : null,
               input.classification,
             )
         }
@@ -359,7 +378,7 @@ export class AnalyticsDb {
     const visits = this.db.prepare(`SELECT COUNT(*) AS n FROM visits WHERE ${where.sql}`).get(...where.args) as { n: number }
     const visitors = this.db
       .prepare(
-        `SELECT COUNT(DISTINCT visitor_id) AS n FROM visits
+        `SELECT COUNT(DISTINCT COALESCE(ip_hash, visitor_id)) AS n FROM visits
          WHERE last_seen >= ? AND started_at <= ? AND classification IN (${classPlaceholders})
          ${filters.campaign ? 'AND utm_campaign = ?' : ''}
          ${filters.referrer ? 'AND referrer_host = ?' : ''}`,
@@ -409,14 +428,14 @@ export class AnalyticsDb {
     }
     const active = this.db
       .prepare(
-        `SELECT COUNT(DISTINCT h.visitor_id) AS n FROM heartbeats h
-         WHERE h.created_at >= ?
-         AND h.visitor_id IN (SELECT visitor_id FROM visits WHERE classification IN (${classPlaceholders}))`,
+        `SELECT COUNT(DISTINCT COALESCE(v.ip_hash, h.visitor_id)) AS n FROM heartbeats h
+         JOIN visits v ON v.id = h.visit_id
+         WHERE h.created_at >= ? AND v.classification IN (${classPlaceholders})`,
       )
       .get(activeSince, ...classArgs) as { n: number }
     const started = this.db
-      .prepare(`SELECT visitor_id, started_at FROM visits WHERE ${where.sql}`)
-      .all(...where.args) as { visitor_id: string; started_at: number }[]
+      .prepare(`SELECT visitor_id, ip_hash, started_at FROM visits WHERE ${where.sql}`)
+      .all(...where.args) as { visitor_id: string; ip_hash: string | null; started_at: number }[]
     const referrals = this.db
       .prepare(
         `SELECT COALESCE(referrer_host, '') AS host, COUNT(*) AS n FROM visits WHERE ${where.sql}
@@ -437,7 +456,7 @@ export class AnalyticsDb {
       pageViews: Number(views.n),
       clicks,
       trend: bucketTrend(
-        started.map((row) => ({ visitorId: row.visitor_id, at: row.started_at })),
+        started.map((row) => ({ visitorId: row.ip_hash ?? row.visitor_id, at: row.started_at })),
         filters.range,
       ),
       trendUnit: filters.range.unit,

@@ -336,7 +336,7 @@ export default function Dashboard() {
           Log out
         </button>
       </div>
-      <p className="dash-note">Each person is counted once. Times are America/New_York.</p>
+      <p className="dash-note">Each IP address is counted once. Times are America/New_York.</p>
       {notice && <p role="status">{notice}</p>}
       <form
         className="dash-filters"
@@ -432,12 +432,12 @@ export default function Dashboard() {
             <article className="is-lead">
               <p>Active visitors</p>
               <strong>{summary.activeVisitors}</strong>
-              <span>Unique people online now</span>
+              <span>Each IP address online now</span>
             </article>
             <article>
               <p>Unique visitors</p>
               <strong>{summary.browserVisitors}</strong>
-              <span>Each person once in this range</span>
+              <span>Each IP address once in this range</span>
             </article>
             <article>
               <p>Visits</p>

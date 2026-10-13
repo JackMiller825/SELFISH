@@ -498,6 +498,40 @@ test('the public site origin can call the API with a partitioned cookie', async 
   }
 })
 
+test('unique visitors collapse browsers that share an IP address', async () => {
+  const session = await start({
+    trustProxy: true,
+    trustedProxies: ['127.0.0.1'],
+    trustedIpHeader: 'cf-connecting-ip',
+  })
+  try {
+    const shared = { 'cf-connecting-ip': '203.0.113.50' }
+    const beat = (headers: Record<string, string>) =>
+      session.request('/api/analytics/heartbeat', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json', 'user-agent': BROWSER, ...headers },
+        body: JSON.stringify({ type: 'heartbeat', eventId: crypto.randomUUID(), path: '/', section: 'home' }),
+      })
+    await collect(session, { type: 'pageview' }, shared)
+    await beat(shared)
+    await collect(session, { type: 'pageview' }, { ...shared, cookie: 'selfish_vid=secondvisitorcookie01' })
+    await beat({ ...shared, cookie: 'selfish_vid=secondvisitorcookie01' })
+    await collect(session, { type: 'pageview' }, { 'cf-connecting-ip': '203.0.113.77', cookie: 'selfish_vid=thirdvisitorcookie001' })
+    await login(session)
+    const summary = await session.request('/api/dashboard/analytics/summary?range=today')
+    assert.equal(summary.data.visits, 3)
+    assert.equal(summary.data.browserVisitors, 2)
+    assert.equal(summary.data.activeVisitors, 1)
+    const trend = summary.data.trend as { visitors: number }[]
+    assert.equal(
+      trend.reduce((sum, bucket) => sum + bucket.visitors, 0),
+      2,
+    )
+  } finally {
+    await session.stop()
+  }
+})
+
 test('a repeat visit stays one person and shows a coarse location', async () => {
   const session = await start({
     trustProxy: true,
