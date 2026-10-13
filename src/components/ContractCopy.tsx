@@ -31,7 +31,7 @@ export function ContractCopy() {
   }
 
   return (
-    <div className="contract-panel">
+    <div className="contract-panel token-contract">
       <p className="contract-label">{copy.tokenomics.contractLabel}</p>
       <div className="contract-actions">
         <button

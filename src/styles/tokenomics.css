@@ -1,0 +1,353 @@
+.section-vault {
+  --token-font: "Fredoka", "Arial Black", Arial, sans-serif;
+  position: relative;
+  isolation: isolate;
+  overflow-x: clip;
+  padding: 96px 0 88px;
+  background: #02182c;
+}
+
+.section-vault::before {
+  content: none;
+}
+
+.token-ocean,
+.token-shade {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.token-ocean {
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+}
+
+.token-shade {
+  z-index: 0;
+  background: linear-gradient(180deg, rgba(2, 18, 36, 0.18), rgba(2, 16, 32, 0.38));
+}
+
+.token-wrap {
+  position: relative;
+  z-index: 1;
+  width: min(1280px, calc(100% - 40px));
+  margin-inline: auto;
+  display: grid;
+  gap: 18px;
+}
+
+.token-kicker {
+  margin: 0 0 8px;
+  color: #ffdb64;
+  font-family: var(--token-font);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  font-size: 18px;
+}
+
+.token-title {
+  display: grid;
+  margin: 0 0 12px;
+  font-family: var(--token-font);
+  font-weight: 700;
+  font-size: clamp(40px, 5vw, 72px);
+  line-height: 0.92;
+  letter-spacing: -0.03em;
+  color: #fff8df;
+  -webkit-text-stroke: 5px #02182c;
+  paint-order: stroke fill;
+  text-shadow: 0 6px 0 #07428d, 0 9px 0 #02182c;
+}
+
+.token-title .token-gold {
+  color: #ffdb64;
+}
+
+.token-title:focus {
+  outline: 3px solid #ffdb64;
+  outline-offset: 8px;
+}
+
+.token-hook {
+  margin: 0 0 8px;
+  color: #fff8df;
+  font-family: var(--token-font);
+  font-weight: 700;
+  font-size: clamp(18px, 2vw, 22px);
+  text-shadow: 0 2px 0 rgba(2, 24, 44, 0.45);
+}
+
+.token-body {
+  max-width: 42ch;
+  color: rgba(255, 248, 223, 0.94);
+  font-size: 17px;
+  line-height: 1.5;
+  text-shadow: 0 2px 0 rgba(2, 24, 44, 0.4);
+}
+
+.token-network {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  font-weight: 800;
+  color: #fff8df;
+}
+
+.token-network strong {
+  font-weight: 800;
+}
+
+.eth-mark {
+  width: 16px;
+  height: 22px;
+  background: linear-gradient(#f4fbff, #8eb6ff 45%, #116cdd);
+  clip-path: polygon(50% 0, 100% 38%, 78% 100%, 22% 100%, 0 38%);
+}
+
+.vault-stage {
+  position: relative;
+}
+
+.vault-whale {
+  display: block;
+  width: min(240px, 62%);
+  height: auto;
+  margin: 0 auto 4px;
+  object-fit: contain;
+}
+
+.vault-frame {
+  position: relative;
+  width: min(100%, 560px);
+  margin-inline: auto;
+}
+
+.vault-rim {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+.vault-facts {
+  list-style: none;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin: 14px 0 0;
+}
+
+.vault-fact {
+  display: grid;
+  justify-items: center;
+  gap: 4px;
+  padding: 10px 8px;
+  text-align: center;
+  background: rgba(4, 16, 32, 0.9);
+  border: 2px solid rgba(255, 219, 100, 0.72);
+  border-radius: 14px;
+  box-shadow: inset 0 0 0 1px rgba(98, 232, 236, 0.25);
+}
+
+.vault-fact img {
+  width: 42px;
+  height: 42px;
+  object-fit: contain;
+}
+
+.vault-fact span,
+.vault-fact strong {
+  max-width: 100%;
+  overflow-wrap: anywhere;
+}
+
+.vault-fact span {
+  color: #ffdb64;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  line-height: 1.15;
+  text-transform: uppercase;
+}
+
+.vault-fact strong {
+  color: #fff8df;
+  font-size: 0.95rem;
+  line-height: 1.2;
+}
+
+.token-contract {
+  display: grid;
+  gap: 8px;
+  background: linear-gradient(180deg, rgba(28, 22, 8, 0.82), rgba(6, 16, 32, 0.94));
+  border: 2px solid rgba(255, 219, 100, 0.78);
+  border-radius: 16px;
+}
+
+.token-contract .address {
+  margin: 0;
+  color: #fff8df;
+  font-weight: 800;
+}
+
+.token-contract .btn {
+  font-family: var(--token-font);
+  min-height: 44px;
+}
+
+@media (max-width: 1023px) {
+  .token-copy { order: 1; }
+  .vault-stage { order: 2; }
+  .token-contract { order: 3; }
+  .token-network { order: 4; }
+}
+
+@media (min-width: 360px) and (max-width: 1023px) {
+  .vault-stage { margin-top: 88px; }
+}
+
+@media (max-width: 760px) {
+  .section-vault {
+    padding-top: 72px;
+  }
+
+  .token-ocean {
+    object-position: center 65%;
+  }
+
+  .token-copy,
+  .token-kicker,
+  .token-title,
+  .token-hook,
+  .token-body,
+  .token-network {
+    text-align: center;
+  }
+
+  .token-network {
+    justify-content: center;
+  }
+
+  .token-title {
+    font-size: clamp(34px, 10vw, 58px);
+    -webkit-text-stroke-width: 4px;
+  }
+
+  .token-body {
+    margin-inline: auto;
+  }
+
+  .vault-whale {
+    position: relative;
+    z-index: 2;
+    width: min(260px, 74%);
+    margin-bottom: -14%;
+  }
+
+  .vault-fact {
+    padding: 4px 3px;
+    gap: 2px;
+  }
+
+  .vault-fact img {
+    width: 28px;
+    height: 28px;
+  }
+
+  .vault-fact span {
+    font-size: 0.58rem;
+  }
+
+  .vault-fact strong {
+    font-size: 0.68rem;
+  }
+}
+
+@media (min-width: 360px) {
+  .vault-whale {
+    position: absolute;
+    z-index: 2;
+    left: 50%;
+    top: 0;
+    bottom: auto;
+    width: min(190px, 54%);
+    margin: 0;
+    transform: translate(-50%, -62%);
+    pointer-events: none;
+  }
+
+  .vault-facts {
+    position: absolute;
+    z-index: 3;
+    left: 50%;
+    top: 50%;
+    width: 54%;
+    margin: 0;
+    transform: translate(-50%, -50%);
+  }
+}
+
+@media (min-width: 1024px) {
+  .token-wrap {
+    width: min(1280px, calc(100% - 64px));
+    grid-template-columns: minmax(0, 0.42fr) minmax(0, 0.58fr);
+    grid-template-areas:
+      "copy vault"
+      "network vault"
+      "network contract";
+    column-gap: 28px;
+    row-gap: 16px;
+    align-items: start;
+  }
+
+  .token-copy { grid-area: copy; }
+  .token-network { grid-area: network; align-self: start; }
+  .vault-stage { grid-area: vault; }
+  .token-contract { grid-area: contract; }
+
+  .token-contract {
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+  }
+
+  .token-contract .contract-actions {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    justify-content: flex-end;
+  }
+
+  .token-contract .copy-status,
+  .token-contract .pending-note {
+    grid-column: 1 / -1;
+  }
+
+  .vault-stage {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .vault-frame {
+    width: min(100%, 620px);
+    margin-left: auto;
+    margin-right: 0;
+  }
+
+  .vault-whale {
+    left: -8%;
+    top: auto;
+    bottom: 0;
+    width: 34%;
+    transform: none;
+  }
+}
+
+@media (min-width: 1440px) {
+  .token-wrap {
+    width: min(1280px, calc(100% - 96px));
+  }
+}

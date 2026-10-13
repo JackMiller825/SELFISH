@@ -1,9 +1,14 @@
 import { project } from '../config/project.ts'
-import { allFactsConfigured, displayFact } from '../config/links.ts'
+import { allFactsConfigured, configuredText } from '../config/links.ts'
 import { copy } from '../content/copy.ts'
 import { ContractCopy } from '../components/ContractCopy.tsx'
-import { ReefFrame, WaveDivider } from '../components/OceanScene.tsx'
-import { stickerSrc } from '../data/stickers.ts'
+
+const factIcons = {
+  totalSupply: '/assets/tokenomics/selfish-tokenomics-icon-supply.png',
+  buySellTax: '/assets/tokenomics/selfish-tokenomics-icon-tax.png',
+  liquidityStatus: '/assets/tokenomics/selfish-tokenomics-icon-liquidity.png',
+  ownershipStatus: '/assets/tokenomics/selfish-tokenomics-icon-ownership.png',
+} as const
 
 const factValues = {
   totalSupply: project.totalSupply,
@@ -15,44 +20,74 @@ const factValues = {
 export function Tokenomics() {
   return (
     <section className="section section-vault" id="tokenomics" aria-labelledby="tokenomics-heading">
-      <ReefFrame />
-      <div className="wrap token-layout">
+      <img
+        className="token-ocean"
+        src="/assets/tokenomics/selfish-tokenomics-ocean.webp"
+        alt=""
+        width={1672}
+        height={941}
+        decoding="async"
+        loading="lazy"
+        aria-hidden="true"
+      />
+      <div className="token-shade" aria-hidden="true" />
+      <div className="token-wrap">
         <div className="token-copy">
-          <h2 id="tokenomics-heading" className="display" tabIndex={-1}>
-            {copy.tokenomics.titleLead}
-            <span className="gold">{copy.tokenomics.titleGold}</span>
+          <p className="token-kicker">TOKENOMICS</p>
+          <h2 id="tokenomics-heading" className="token-title" tabIndex={-1}>
+            <span>OPEN THE</span>
+            <span className="token-gold">SUNKEN VAULT.</span>
           </h2>
-          <p className="hook">{copy.tokenomics.hook}</p>
-          <p>{allFactsConfigured() ? copy.tokenomics.ready : copy.tokenomics.pending}</p>
-          <p className="network-row">
-            <span className="net-gem" aria-hidden="true" />
-            <span>{copy.tokenomics.networkLabel}</span>
-            <strong>{project.network}</strong>
-          </p>
-          <img
-            className="vault-peek"
-            src={stickerSrc('017-selfish-greedy.png')}
-            alt=""
-            width={512}
-            height={512}
-            decoding="async"
-            loading="lazy"
-          />
+          <p className="token-hook">{copy.tokenomics.hook}</p>
+          <p className="token-body">{allFactsConfigured() ? copy.tokenomics.ready : copy.tokenomics.pending}</p>
         </div>
-        <div className="vault">
-          <div className="vault-ring" aria-hidden="true" />
-          <ul className="fact-grid">
-            {copy.tokenomics.facts.map((fact) => (
-              <li key={fact.key} className="fact-tile">
-                <span>{fact.label}</span>
-                <strong>{displayFact(factValues[fact.key])}</strong>
-              </li>
-            ))}
-          </ul>
+        <div className="vault-stage">
+          <div className="vault-frame">
+            <img
+              className="vault-whale"
+              src="/assets/tokenomics/selfish-tokenomics-whale-coins.png"
+              alt="SELLFISH whale resting on a pile of gold coins"
+              width={900}
+              height={618}
+              decoding="async"
+              loading="lazy"
+            />
+            <img
+              className="vault-rim"
+              src="/assets/tokenomics/selfish-tokenomics-vault-frame.png"
+              alt=""
+              width={1080}
+              height={1080}
+              decoding="async"
+              loading="lazy"
+              aria-hidden="true"
+            />
+            <ul className="vault-facts">
+              {copy.tokenomics.facts.map((fact) => (
+                <li key={fact.key} className="vault-fact">
+                  <img
+                    src={factIcons[fact.key]}
+                    alt=""
+                    width={512}
+                    height={512}
+                    decoding="async"
+                    loading="lazy"
+                    aria-hidden="true"
+                  />
+                  <span>{fact.label}</span>
+                  <strong>{configuredText(factValues[fact.key]) ?? 'Pending confirmation'}</strong>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
         <ContractCopy />
+        <p className="token-network">
+          <span className="eth-mark" aria-hidden="true" />
+          <span>{copy.tokenomics.networkLabel}:</span>
+          <strong>{project.network}</strong>
+        </p>
       </div>
-      <WaveDivider tone="mid" />
     </section>
   )
 }

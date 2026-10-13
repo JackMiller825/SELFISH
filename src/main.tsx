@@ -7,6 +7,7 @@ import './styles/global.css'
 import './styles/sections.css'
 import './styles/home.css'
 import './styles/story.css'
+import './styles/tokenomics.css'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
