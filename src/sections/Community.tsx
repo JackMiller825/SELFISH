@@ -2,7 +2,7 @@ import { project } from '../config/project.ts'
 import { isValidHttpsUrl } from '../config/links.ts'
 import { copy } from '../content/copy.ts'
 import { stickerSrc } from '../data/stickers.ts'
-import { Coral, WaveDivider } from '../components/OceanScene.tsx'
+import { ReefFrame, WaveDivider } from '../components/OceanScene.tsx'
 import { PendingLink } from '../components/PendingLink.tsx'
 import { ShellFrame, TelegramIcon, XIcon } from '../components/SceneArt.tsx'
 import { StickerGallery } from '../components/StickerGallery.tsx'
@@ -13,8 +13,7 @@ export function Community() {
   const socialsReady = telegramReady && xReady
   return (
     <section className="section section-reef" id="community" aria-labelledby="community-heading">
-      <Coral side="left" />
-      <Coral side="right" />
+      <ReefFrame />
       <div className="wrap">
         <div className="community-top">
           <div className="copy-panel">

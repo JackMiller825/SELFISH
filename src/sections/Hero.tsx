@@ -2,7 +2,7 @@ import { project } from '../config/project.ts'
 import { canBuy } from '../config/links.ts'
 import { copy } from '../content/copy.ts'
 import { stickerSrc } from '../data/stickers.ts'
-import { WaveDivider } from '../components/OceanScene.tsx'
+import { ReefFrame, WaveDivider } from '../components/OceanScene.tsx'
 import { PendingLink } from '../components/PendingLink.tsx'
 import { CandleDecor, CoinPile, SellProp } from '../components/SceneArt.tsx'
 
@@ -10,24 +10,30 @@ export function Hero() {
   const buyingReady = canBuy()
   return (
     <section className="section section-hero" id="home" aria-labelledby="home-heading">
+      <ReefFrame />
       <div className="wrap hero-grid">
-        <div className="copy-panel">
+        <div className="hero-copy">
           <p className="eyebrow">{copy.hero.eyebrow}</p>
           <h1 id="home-heading" className="display" tabIndex={-1}>
             {copy.hero.titleLead}
             <span className="gold">{copy.hero.titleGold}</span>
           </h1>
+          <p className="hero-mark">
+            {project.name} / {project.ticker}
+          </p>
           <p className="hook">{copy.hero.hook}</p>
-          <p>{copy.hero.body}</p>
+          <p className="hero-body">{copy.hero.body}</p>
           <div className="actions">
-            <a className="btn btn-primary" href="#story">
+            <a className="btn btn-gold" href="#story">
               {copy.hero.dive}
+              <span aria-hidden="true"> ↓</span>
             </a>
             <PendingLink
               url={project.buyUrl}
               enabled={buyingReady}
               label={copy.hero.buy}
               pendingLabel={copy.hero.buyPending}
+              className={buyingReady ? 'btn btn-gold' : 'btn btn-muted'}
               describedBy={buyingReady ? undefined : 'hero-buy-note'}
             />
             <a className="btn btn-ghost" href="#tokenomics">
@@ -41,6 +47,7 @@ export function Hero() {
           )}
         </div>
         <div className="mascot-scene">
+          <div className="stage-glow" aria-hidden="true" />
           <CandleDecor />
           <img
             className="hero-whale whale-float"

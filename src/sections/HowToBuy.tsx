@@ -2,7 +2,8 @@ import { project } from '../config/project.ts'
 import { canBuy, displayAddress } from '../config/links.ts'
 import { copy } from '../content/copy.ts'
 import { FAQ } from '../components/FAQ.tsx'
-import { WaveDivider } from '../components/OceanScene.tsx'
+import { ReefFrame, WaveDivider } from '../components/OceanScene.tsx'
+import { stickerSrc } from '../data/stickers.ts'
 import { PendingLink } from '../components/PendingLink.tsx'
 import { ChecklistIcon, EthIcon, GogglesIcon, SwapIcon } from '../components/SceneArt.tsx'
 
@@ -12,19 +13,34 @@ export function HowToBuy() {
   const buyingReady = canBuy()
   return (
     <section className="section section-dive" id="how-to-buy" aria-labelledby="how-to-buy-heading">
+      <ReefFrame />
       <div className="wrap">
-        <div className="section-intro">
-          <h2 id="how-to-buy-heading" className="display" tabIndex={-1}>
-            {copy.howToBuy.titleLead}
-            <span className="gold">{copy.howToBuy.titleGold}</span>
-          </h2>
-          <p className="lede">{copy.howToBuy.intro}</p>
+        <div className="dive-head">
+          <div>
+            <h2 id="how-to-buy-heading" className="display" tabIndex={-1}>
+              {copy.howToBuy.titleLead}
+              <span className="gold">{copy.howToBuy.titleGold}</span>
+            </h2>
+            <p className="lede">{copy.howToBuy.intro}</p>
+          </div>
+          <img
+            className="dive-whale whale-float"
+            src={stickerSrc('009-selfish-smug.png')}
+            alt=""
+            width={512}
+            height={512}
+            decoding="async"
+            loading="lazy"
+          />
         </div>
         <ol className="steps">
           {copy.howToBuy.steps.map((step, index) => {
             const Icon = icons[index]
             return (
               <li key={step.title}>
+                <span className="step-index" aria-hidden="true">
+                  {index + 1}
+                </span>
                 <span className="step-icon" aria-hidden="true">
                   <Icon />
                 </span>
@@ -46,6 +62,7 @@ export function HowToBuy() {
             enabled={buyingReady}
             label={copy.hero.buy}
             pendingLabel={copy.hero.buyPending}
+            className={buyingReady ? 'btn btn-gold btn-wide' : 'btn btn-muted btn-wide'}
             describedBy="howto-buy-note"
           />
         </div>
