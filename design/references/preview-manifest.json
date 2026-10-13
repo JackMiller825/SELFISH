@@ -1,0 +1,156 @@
+[
+  {
+    "filename": "01-selfish-home-overview-desktop.png",
+    "view": "Full single-page overview",
+    "device": "Desktop",
+    "purpose": "Complete underwater progression; updated with sticker gallery",
+    "dimensions": {
+      "width": 764,
+      "height": 2059
+    },
+    "format": "PNG"
+  },
+  {
+    "filename": "02-selfish-home-overview-mobile.png",
+    "view": "Full single-page overview",
+    "device": "Mobile",
+    "purpose": "Responsive vertical progression; updated with sticker gallery",
+    "dimensions": {
+      "width": 721,
+      "height": 2180
+    },
+    "format": "PNG"
+  },
+  {
+    "filename": "03-selfish-home-hero-desktop.png",
+    "view": "Hero",
+    "device": "Desktop",
+    "purpose": "Hook and Home active state",
+    "dimensions": {
+      "width": 1505,
+      "height": 1045
+    },
+    "format": "PNG"
+  },
+  {
+    "filename": "04-selfish-home-story-desktop.png",
+    "view": "Story",
+    "device": "Desktop",
+    "purpose": "Cutaway story and SELL interaction state",
+    "dimensions": {
+      "width": 1536,
+      "height": 1024
+    },
+    "format": "PNG"
+  },
+  {
+    "filename": "05-selfish-home-tokenomics-desktop.png",
+    "view": "Tokenomics",
+    "device": "Desktop",
+    "purpose": "Sunken vault and unconfirmed facts",
+    "dimensions": {
+      "width": 1672,
+      "height": 941
+    },
+    "format": "PNG"
+  },
+  {
+    "filename": "06-selfish-home-how-to-buy-desktop.png",
+    "view": "How to Buy",
+    "device": "Desktop",
+    "purpose": "Four-step descending path",
+    "dimensions": {
+      "width": 1672,
+      "height": 941
+    },
+    "format": "PNG"
+  },
+  {
+    "filename": "07-selfish-home-community-desktop.png",
+    "view": "Community",
+    "device": "Desktop",
+    "purpose": "Reef invitation and hover state; updated with sticker gallery",
+    "dimensions": {
+      "width": 1536,
+      "height": 1024
+    },
+    "format": "PNG"
+  },
+  {
+    "filename": "08-selfish-home-hero-mobile.png",
+    "view": "Hero",
+    "device": "Mobile",
+    "purpose": "Stacked hook, mascot and actions",
+    "dimensions": {
+      "width": 793,
+      "height": 1983
+    },
+    "format": "PNG"
+  },
+  {
+    "filename": "09-selfish-home-story-mobile.png",
+    "view": "Story",
+    "device": "Mobile",
+    "purpose": "Vertical story and demo",
+    "dimensions": {
+      "width": 793,
+      "height": 1983
+    },
+    "format": "PNG"
+  },
+  {
+    "filename": "10-selfish-home-tokenomics-mobile.png",
+    "view": "Tokenomics",
+    "device": "Mobile",
+    "purpose": "Centered vault, wrapping address",
+    "dimensions": {
+      "width": 793,
+      "height": 1983
+    },
+    "format": "PNG"
+  },
+  {
+    "filename": "11-selfish-home-how-to-buy-mobile.png",
+    "view": "How to Buy",
+    "device": "Mobile",
+    "purpose": "Vertical numbered guide",
+    "dimensions": {
+      "width": 809,
+      "height": 1942
+    },
+    "format": "PNG"
+  },
+  {
+    "filename": "12-selfish-home-community-mobile.png",
+    "view": "Community",
+    "device": "Mobile",
+    "purpose": "Stacked social shells; updated with sticker gallery",
+    "dimensions": {
+      "width": 793,
+      "height": 1983
+    },
+    "format": "PNG"
+  },
+  {
+    "filename": "13-selfish-header-navigation-states.png",
+    "view": "Header and navigation interactions",
+    "device": "Desktop + mobile",
+    "purpose": "Active, keyboard focus, open mobile menu",
+    "dimensions": {
+      "width": 1536,
+      "height": 1024
+    },
+    "format": "PNG"
+  },
+  {
+    "filename": "14-selfish-footer-responsive.png",
+    "view": "Footer",
+    "device": "Desktop + mobile",
+    "purpose": "Wrap, disclaimer, return to surface",
+    "dimensions": {
+      "width": 1536,
+      "height": 1024
+    },
+    "format": "PNG"
+  }
+]

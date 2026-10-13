@@ -1,0 +1,26 @@
+:root {
+  --navy: #002746;
+  --seabed: #02182c;
+  --royal: #116cdd;
+  --turquoise: #62e8ec;
+  --cream: #fff8df;
+  --gold: #ffdb64;
+  --coral: #ff665d;
+  --ink: #02101c;
+  --font-display: "Arial Black", "Arial Bold", Arial, "Segoe UI", sans-serif;
+  --font-body: Arial, "Helvetica Neue", "Segoe UI", sans-serif;
+  --font-mono: Consolas, "Courier New", monospace;
+  --content: 1200px;
+  --header-top: 12px;
+  --header-height: 64px;
+  --scroll-pad: 100px;
+  color-scheme: dark;
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --header-top: 18px;
+    --header-height: 72px;
+    --scroll-pad: 118px;
+  }
+}

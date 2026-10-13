@@ -1,0 +1,9 @@
+Name: SELLFISH
+Ticker: $SELFISH
+Meaning: Sell + Selfish + Fish; a greedy whale smiles while secretly selling and sinking the chart.
+Mascot: Concept 10, royal-blue whale with cream belly, scheming eyebrows, toothy grin and red SELL button.
+Palette: Royal blue, navy, aqua, cream, gold, red.
+Style: Bold outlined 2D cartoon.
+Logo: 1024 x 1024 PNG; real alpha transparency outside circular badge.
+Wide banner: 1500 x 500 PNG.
+Telegram banner: 1100 x 520 PNG.
