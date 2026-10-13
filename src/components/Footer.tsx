@@ -65,14 +65,17 @@ export function Footer() {
 
   return (
     <footer className="site-footer" id="site-footer">
-      <img
-        className="footer-logo"
-        src="/assets/brand/selfish-logo-transparent.png"
-        alt="SELLFISH"
-        width={256}
-        height={256}
-        decoding="async"
-      />
+      <div className="footer-mark">
+        <img
+          className="footer-logo"
+          src="/assets/brand/selfish-logo-transparent.png"
+          alt="SELLFISH"
+          width={256}
+          height={256}
+          decoding="async"
+        />
+        <p className="footer-tagline">Big fins. Selfish wins.</p>
+      </div>
       <nav className="footer-nav" aria-label="Footer">
         <ul>
           {navItems.map((item) => (

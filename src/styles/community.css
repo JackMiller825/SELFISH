@@ -315,6 +315,24 @@
   display: flex;
   align-items: center;
   gap: 8px;
+  margin-left: auto;
+}
+
+.footer-mark {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.footer-tagline {
+  margin: 0;
+  color: #fff8df;
+  font-family: "Fredoka", "Arial Black", Arial, sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 1.05;
+  text-shadow: 0 2px 0 rgba(2, 24, 44, 0.45);
 }
 
 .site-footer .footer-logo {
@@ -395,6 +413,11 @@
   .site-footer .footer-logo {
     width: 72px;
     height: 72px;
+  }
+
+  .footer-tagline {
+    font-size: 16px;
+    max-width: 8.2rem;
   }
 }
 
