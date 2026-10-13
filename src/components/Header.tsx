@@ -76,7 +76,12 @@ export function Header() {
         aria-controls="site-menu"
         onClick={() => setOpen((value) => !value)}
       >
-        {open ? 'Close menu' : 'Menu'}
+        <span>{open ? 'Close menu' : 'Menu'}</span>
+        <span className="menu-bars" aria-hidden="true">
+          <span />
+          <span />
+          <span />
+        </span>
       </button>
       <nav id="site-menu" className={open ? 'site-nav is-open' : 'site-nav'} aria-label="Primary">
         <ul>

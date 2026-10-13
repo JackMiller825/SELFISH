@@ -1,0 +1,375 @@
+.section-hero {
+  --home-font: "Fredoka", "Arial Black", Arial, sans-serif;
+  position: relative;
+  isolation: isolate;
+  overflow-x: clip;
+  padding: 140px 0 120px;
+  background: #08345c;
+}
+
+.section-hero::before {
+  content: none;
+}
+
+.home-ocean,
+.home-reef,
+.home-wave {
+  pointer-events: none;
+}
+
+.home-ocean {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  margin: 0;
+}
+
+.home-ocean img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+}
+
+.home-reef {
+  position: absolute;
+  z-index: 1;
+  bottom: 36px;
+  width: min(17vw, 230px);
+  height: auto;
+  object-fit: contain;
+}
+
+.home-reef-left { left: 0; }
+.home-reef-right { right: 0; }
+
+.home-wrap {
+  position: relative;
+  z-index: 3;
+  width: min(1280px, calc(100% - 40px));
+  margin-inline: auto;
+  display: grid;
+  gap: 8px;
+}
+
+.home-copy {
+  max-width: 640px;
+}
+
+.home-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  margin: 0 0 14px;
+  padding: 7px 14px;
+  border-radius: 999px;
+  background: rgba(4, 28, 58, 0.45);
+  border: 1px solid rgba(255, 248, 223, 0.28);
+  color: #fff8df;
+  font-family: var(--home-font);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+}
+
+.home-title {
+  display: grid;
+  margin: 0;
+  font-family: var(--home-font);
+  font-weight: 700;
+  font-size: clamp(48px, 6.5vw, 92px);
+  line-height: 0.92;
+  letter-spacing: -0.025em;
+  color: #fff8df;
+  -webkit-text-stroke: 6px #02182c;
+  paint-order: stroke fill;
+  text-shadow: 0 7px 0 #07428d, 0 11px 0 #02182c;
+}
+
+.home-title:focus {
+  outline: 3px solid #ffdb64;
+  outline-offset: 8px;
+}
+
+.home-brandline {
+  margin: 10px 0 8px;
+  font-family: var(--home-font);
+  font-weight: 700;
+  font-size: clamp(28px, 3.2vw, 44px);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: #fff8df;
+  -webkit-text-stroke: 3px #02182c;
+  paint-order: stroke fill;
+  text-shadow: 0 4px 0 #07428d;
+}
+
+.home-ticker {
+  color: #ffdb64;
+}
+
+.home-hook,
+.home-body,
+.home-note {
+  text-shadow: 0 2px 0 rgba(2, 24, 44, 0.55);
+}
+
+.home-hook {
+  margin: 8px 0;
+  max-width: 28ch;
+  color: #fff8df;
+  font-family: var(--home-font);
+  font-size: clamp(18px, 1.6vw, 24px);
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.home-body,
+.home-note {
+  max-width: 42ch;
+  color: rgba(255, 248, 223, 0.94);
+}
+
+.home-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 18px 0 8px;
+}
+
+.section-hero .btn {
+  font-family: var(--home-font);
+  font-weight: 700;
+  min-height: 52px;
+  padding: 12px 22px;
+  border-radius: 999px;
+}
+
+.section-hero .btn-gold {
+  border: 3px solid #02182c;
+  box-shadow: 0 4px 0 #07428d;
+}
+
+.section-hero .btn-muted {
+  border: 3px solid rgba(2, 24, 44, 0.45);
+  background: linear-gradient(#8ea0ae, #5d7282);
+  color: #f4f7f8;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25);
+}
+
+.section-hero .btn-ghost {
+  background: rgba(3, 24, 48, 0.42);
+  border-color: rgba(255, 248, 223, 0.45);
+}
+
+.home-scene {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.home-whale {
+  display: block;
+  width: min(100%, 650px);
+  height: auto;
+  object-fit: contain;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .home-whale {
+    animation: home-float 7s ease-in-out infinite;
+  }
+}
+
+@keyframes home-float {
+  0%,
+  100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.home-scroll {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  margin: 18px auto 0;
+  min-height: 44px;
+  color: #fff8df;
+  font-family: var(--home-font);
+  font-weight: 700;
+  text-align: center;
+  text-decoration: none;
+  text-shadow: 0 2px 0 rgba(2, 24, 44, 0.55);
+}
+
+.home-scroll::after {
+  content: "↓";
+  width: 46px;
+  height: 46px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  border: 3px solid #fff8df;
+  background: rgba(8, 52, 92, 0.35);
+  font-size: 22px;
+}
+
+.home-wave {
+  position: relative;
+  z-index: 4;
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 8px 0 -64px;
+  object-fit: contain;
+}
+
+.site-header {
+  width: min(1180px, calc(100% - 32px));
+  background: rgba(3, 27, 58, 0.78);
+}
+
+.brand-name,
+.brand-ticker,
+.site-nav a,
+.menu-toggle {
+  font-family: "Fredoka", "Arial Black", Arial, sans-serif;
+  font-weight: 700;
+}
+
+.brand-name {
+  font-size: 16px;
+  letter-spacing: 0.01em;
+  -webkit-text-stroke: 0;
+  text-shadow: none;
+}
+
+.brand-logo {
+  width: 46px;
+  height: 46px;
+  background: transparent;
+  box-shadow: 0 0 0 2px rgba(255, 219, 100, 0.85);
+}
+
+@media (max-width: 1023px) {
+  .menu-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .menu-bars {
+    display: grid;
+    gap: 4px;
+  }
+
+  .menu-bars span {
+    display: block;
+    width: 18px;
+    height: 2px;
+    border-radius: 2px;
+    background: currentColor;
+  }
+}
+
+@media (max-width: 760px) {
+  .section-hero {
+    padding: 108px 0 72px;
+  }
+
+  .home-wrap {
+    width: min(1280px, calc(100% - 40px));
+  }
+
+  .home-copy,
+  .home-eyebrow,
+  .home-title,
+  .home-brandline,
+  .home-hook,
+  .home-body,
+  .home-note,
+  .home-actions {
+    text-align: center;
+    margin-inline: auto;
+  }
+
+  .home-title {
+    font-size: clamp(43px, 10.8vw, 78px);
+    -webkit-text-stroke-width: 4px;
+    text-shadow: 0 5px 0 #07428d, 0 8px 0 #02182c;
+  }
+
+  .home-brandline {
+    font-size: clamp(24px, 7vw, 36px);
+    -webkit-text-stroke-width: 2px;
+  }
+
+  .home-actions {
+    justify-content: center;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .home-actions .btn {
+    width: min(100%, 420px);
+    margin-inline: auto;
+  }
+
+  .home-reef {
+    width: 26vw;
+    bottom: 72px;
+  }
+
+  .home-whale {
+    width: 100%;
+  }
+
+  .brand-logo {
+    width: 44px;
+    height: 44px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .home-wrap {
+    width: min(1280px, calc(100% - 64px));
+    grid-template-columns: minmax(0, 0.48fr) minmax(0, 0.52fr);
+    align-items: end;
+    gap: 12px;
+  }
+
+  .home-whale {
+    width: min(100%, 650px);
+  }
+
+  .brand-logo {
+    width: 54px;
+    height: 54px;
+  }
+
+  .brand-name {
+    font-size: 20px;
+  }
+
+  .brand-ticker {
+    font-size: 14px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .section-hero {
+    min-height: 820px;
+    padding-bottom: 140px;
+  }
+
+  .home-wrap {
+    width: min(1280px, calc(100% - 96px));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-whale {
+    animation: none;
+  }
+}

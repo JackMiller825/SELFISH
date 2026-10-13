@@ -1,30 +1,63 @@
 import { project } from '../config/project.ts'
 import { canBuy } from '../config/links.ts'
 import { copy } from '../content/copy.ts'
-import { stickerSrc } from '../data/stickers.ts'
-import { ReefFrame, WaveDivider } from '../components/OceanScene.tsx'
 import { PendingLink } from '../components/PendingLink.tsx'
-import { CandleDecor, CoinPile, SellProp } from '../components/SceneArt.tsx'
 
 export function Hero() {
   const buyingReady = canBuy()
   return (
     <section className="section section-hero" id="home" aria-labelledby="home-heading">
-      <ReefFrame />
-      <div className="wrap hero-grid">
-        <div className="hero-copy">
-          <p className="eyebrow">{copy.hero.eyebrow}</p>
-          <h1 id="home-heading" className="display" tabIndex={-1}>
-            {copy.hero.titleLead}
-            <span className="gold">{copy.hero.titleGold}</span>
+      <picture className="home-ocean" aria-hidden="true">
+        <source
+          media="(max-width: 760px)"
+          srcSet="/assets/home/selfish-home-ocean-mobile.webp"
+          width={841}
+          height={1870}
+        />
+        <img
+          src="/assets/home/selfish-home-ocean-desktop.webp"
+          alt=""
+          width={1642}
+          height={958}
+          decoding="async"
+        />
+      </picture>
+      <img
+        className="home-reef home-reef-left"
+        aria-hidden="true"
+        src="/assets/home/selfish-home-reef-left.png"
+        alt=""
+        width={512}
+        height={896}
+        decoding="async"
+        loading="lazy"
+      />
+      <img
+        className="home-reef home-reef-right"
+        aria-hidden="true"
+        src="/assets/home/selfish-home-reef-right.png"
+        alt=""
+        width={512}
+        height={896}
+        decoding="async"
+        loading="lazy"
+      />
+      <div className="home-wrap">
+        <div className="home-copy">
+          <p className="home-eyebrow">{copy.hero.eyebrow}</p>
+          <h1 id="home-heading" className="home-title" tabIndex={-1}>
+            <span>BENEATH</span>
+            <span>THE SMILE.</span>
           </h1>
-          <p className="hero-mark">
-            {project.name} / {project.ticker}
+          <p className="home-brandline">
+            <span>{project.name}</span>
+            <span className="home-slash"> / </span>
+            <span className="home-ticker">{project.ticker}</span>
           </p>
-          <p className="hook">{copy.hero.hook}</p>
-          <p className="hero-body">{copy.hero.body}</p>
-          <div className="actions">
-            <a className="btn btn-gold" href="#story">
+          <p className="home-hook">{copy.hero.hook}</p>
+          <p className="home-body">{copy.hero.body}</p>
+          <div className="home-actions">
+            <a className="btn btn-gold home-dive" href="#story">
               {copy.hero.dive}
               <span aria-hidden="true"> ↓</span>
             </a>
@@ -36,34 +69,41 @@ export function Hero() {
               className={buyingReady ? 'btn btn-gold' : 'btn btn-muted'}
               describedBy={buyingReady ? undefined : 'hero-buy-note'}
             />
-            <a className="btn btn-ghost" href="#tokenomics">
+            <a className="btn btn-ghost home-details" href="#tokenomics">
               {copy.hero.details}
             </a>
           </div>
           {buyingReady ? null : (
-            <p id="hero-buy-note" className="pending-note">
+            <p id="hero-buy-note" className="home-note">
               {copy.buying.pending}
             </p>
           )}
         </div>
-        <div className="mascot-scene">
-          <div className="stage-glow" aria-hidden="true" />
-          <CandleDecor />
+        <div className="home-scene">
           <img
-            className="hero-whale whale-float"
-            src={stickerSrc('009-selfish-smug.png')}
-            alt="SELLFISH whale with a smug grin"
-            width={512}
-            height={512}
+            className="home-whale"
+            src="/assets/home/selfish-home-whale-scene.png"
+            alt="SELLFISH whale waves while secretly pressing SELL, sending the cartoon chart downward."
+            width={1200}
+            height={1120}
             decoding="async"
             fetchPriority="high"
           />
-          <CoinPile />
-          <SellProp />
         </div>
       </div>
-      <p className="scroll-cue">{copy.hero.scroll}</p>
-      <WaveDivider tone="surface" />
+      <a className="home-scroll" href="#story">
+        {copy.hero.scroll}
+      </a>
+      <img
+        className="home-wave"
+        aria-hidden="true"
+        src="/assets/home/selfish-home-wave-separator.png"
+        alt=""
+        width={1600}
+        height={254}
+        decoding="async"
+        loading="lazy"
+      />
     </section>
   )
 }

@@ -9,12 +9,10 @@ export function BrandMark({ heading = false }: BrandMarkProps) {
     <>
       <img
         className="brand-logo"
-        src="/assets/brand/selfish-logo-transparent.png"
-        srcSet="/assets/brand/selfish-logo-256.png 256w, /assets/brand/selfish-logo-transparent.png 1024w"
-        sizes="56px"
+        src="/assets/home/selfish-logo-transparent.png"
         alt=""
-        width={1024}
-        height={1024}
+        width={256}
+        height={256}
         decoding="async"
       />
       <span className="brand-text">
