@@ -337,8 +337,8 @@
 
 .site-footer .footer-logo {
   display: block;
-  width: 92px;
-  height: 92px;
+  width: 76px;
+  height: 76px;
   object-fit: contain;
 }
 
@@ -411,8 +411,8 @@
   }
 
   .site-footer .footer-logo {
-    width: 72px;
-    height: 72px;
+    width: 60px;
+    height: 60px;
   }
 
   .footer-tagline {
