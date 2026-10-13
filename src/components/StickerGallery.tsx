@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { STICKER_PREVIEW_SHEET_PATH } from '../config/project.ts'
 import { stickerPackHref, usingChatStickerPack } from '../config/links.ts'
 import { copy } from '../content/copy.ts'
-import { stickerSrc, stickers, type Sticker } from '../data/stickers.ts'
+import { communityStickerSrc, stickers, type Sticker } from '../data/stickers.ts'
 
 export function StickerGallery() {
   const dialogRef = useRef<HTMLDialogElement>(null)
@@ -10,6 +10,7 @@ export function StickerGallery() {
   const [broken, setBroken] = useState<Record<string, boolean>>({})
   const [selected, setSelected] = useState<Sticker | null>(null)
   const [dialogBroken, setDialogBroken] = useState(false)
+  const [expanded, setExpanded] = useState(false)
 
   useEffect(() => {
     const dialog = dialogRef.current
@@ -38,16 +39,16 @@ export function StickerGallery() {
   }
 
   return (
-    <div className="gallery">
-      <h3 id="gallery-heading" className="display gallery-title" tabIndex={-1}>
-        {copy.community.galleryTitleLead}
-        <span className="gold">{copy.community.galleryTitleGold}</span>
+    <div className="reef-gallery">
+      <h3 id="gallery-heading" className="reef-gallery-title" tabIndex={-1}>
+        <span>REACTIONS FROM THE</span>
+        <span className="reef-gold">REEF.</span>
       </h3>
-      <p className="lede">{copy.community.galleryCopy}</p>
+      <p className="reef-gallery-copy">{copy.community.galleryCopy}</p>
       {stickers.length === 0 ? (
         <p>{copy.community.empty}</p>
       ) : (
-        <ul className="sticker-grid">
+        <ul id="sticker-grid" className={expanded ? 'reef-grid is-open' : 'reef-grid'}>
           {stickers.map((sticker) => {
             const failed = Boolean(broken[sticker.filename])
             if (failed) {
@@ -68,11 +69,11 @@ export function StickerGallery() {
               <li key={sticker.filename}>
                 <button
                   type="button"
-                  className="sticker-card"
+                  className="reef-card"
                   onClick={(event) => openSticker(sticker, event.currentTarget)}
                 >
                   <img
-                    src={stickerSrc(sticker.filename)}
+                    src={communityStickerSrc(sticker.filename)}
                     alt={sticker.alt}
                     width={512}
                     height={512}
@@ -93,8 +94,19 @@ export function StickerGallery() {
           })}
         </ul>
       )}
-      <div className="gallery-actions">
-        <a className="btn btn-primary" href={stickerPackHref()} download>
+      <div className="reef-gallery-actions">
+        {stickers.length > 6 ? (
+          <button
+            type="button"
+            className="btn btn-ghost"
+            aria-expanded={expanded}
+            aria-controls="sticker-grid"
+            onClick={() => setExpanded((current) => !current)}
+          >
+            {expanded ? copy.community.viewFewer : copy.community.viewAll}
+          </button>
+        ) : null}
+        <a className="btn btn-gold" href={usingChatStickerPack() ? '/downloads/selfish-20-stickers.zip' : stickerPackHref()} download>
           {copy.community.downloadPack}
         </a>
         <p>{usingChatStickerPack() ? copy.community.packNote : copy.community.fullArchiveNote}</p>
@@ -125,7 +137,7 @@ export function StickerGallery() {
               </p>
             ) : (
               <img
-                src={stickerSrc(selected.filename)}
+                src={communityStickerSrc(selected.filename)}
                 alt={selected.alt}
                 width={512}
                 height={512}
@@ -135,7 +147,7 @@ export function StickerGallery() {
             )}
             <div className="dialog-actions">
               {dialogBroken ? null : (
-                <a href={stickerSrc(selected.filename)} download={selected.filename}>
+                <a href={communityStickerSrc(selected.filename)} download={selected.filename}>
                   {copy.community.downloadPng}
                 </a>
               )}

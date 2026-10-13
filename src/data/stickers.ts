@@ -36,3 +36,7 @@ export const stickers: Sticker[] = [
 export function stickerSrc(filename: string): string {
   return `/assets/stickers/${filename}`
 }
+
+export function communityStickerSrc(filename: string): string {
+  return `/assets/community/stickers/${filename}`
+}

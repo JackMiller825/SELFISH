@@ -1,10 +1,8 @@
 import { project } from '../config/project.ts'
 import { isValidHttpsUrl } from '../config/links.ts'
 import { copy } from '../content/copy.ts'
-import { stickerSrc } from '../data/stickers.ts'
-import { ReefFrame, WaveDivider } from '../components/OceanScene.tsx'
 import { PendingLink } from '../components/PendingLink.tsx'
-import { ShellFrame, TelegramIcon, XIcon } from '../components/SceneArt.tsx'
+import { TelegramIcon, XIcon } from '../components/SceneArt.tsx'
 import { StickerGallery } from '../components/StickerGallery.tsx'
 
 export function Community() {
@@ -13,59 +11,83 @@ export function Community() {
   const socialsReady = telegramReady && xReady
   return (
     <section className="section section-reef" id="community" aria-labelledby="community-heading">
-      <ReefFrame />
-      <div className="wrap">
-        <div className="community-top">
-          <div className="copy-panel">
-            <img
-              className="greeting-whale"
-              src={stickerSrc('001-selfish-happy.png')}
-              alt="SELLFISH whale, happy"
-              width={512}
-              height={512}
-              decoding="async"
-              loading="lazy"
-            />
-            <h2 id="community-heading" className="display" tabIndex={-1}>
-              {copy.community.titleLead}
-              <span className="gold">{copy.community.titleGold}</span>
+      <picture>
+        <source media="(max-width: 760px)" srcSet="/assets/community/selfish-community-ocean-mobile.webp" />
+        <img
+          className="reef-ocean"
+          src="/assets/community/selfish-community-ocean-desktop.webp"
+          alt=""
+          width={1672}
+          height={941}
+          decoding="async"
+          loading="lazy"
+          aria-hidden="true"
+        />
+      </picture>
+      <div className="reef-shade" aria-hidden="true" />
+      <div className="reef-wrap">
+        <div className="reef-top">
+          <div className="reef-copy">
+            <h2 id="community-heading" className="reef-title" tabIndex={-1}>
+              <span>SMALL FISH.</span>
+              <span className="reef-gold">BIG ENERGY.</span>
             </h2>
-            <p className="hook">{copy.community.hook}</p>
-            <p>{copy.community.body}</p>
+            <p className="reef-hook">{copy.community.hook}</p>
+            <p className="reef-intro">{copy.community.body}</p>
           </div>
-          <div className="shells">
-            <div className={telegramReady ? 'shell' : 'shell is-pending'}>
-              <ShellFrame />
-              <div className="shell-body">
-                <TelegramIcon />
-                <PendingLink
-                  url={project.telegramUrl}
-                  label={copy.community.telegram}
-                  pendingLabel={copy.community.telegramPending}
-                  className="btn btn-gold"
-                  describedBy={socialsReady ? undefined : 'social-pending-note'}
+          <div className="reef-socials">
+            <div className={telegramReady ? 'reef-social' : 'reef-social is-pending'}>
+              <div className="reef-shell">
+                <img
+                  src="/assets/community/selfish-community-social-shell.png"
+                  alt=""
+                  width={512}
+                  height={512}
+                  decoding="async"
+                  loading="lazy"
+                  aria-hidden="true"
                 />
-                <p>{copy.community.telegramNote}</p>
+                <span className="reef-mark">
+                  <TelegramIcon />
+                </span>
               </div>
+              <PendingLink
+                url={project.telegramUrl}
+                label={copy.community.telegram}
+                pendingLabel={copy.community.telegram}
+                className="btn btn-gold"
+                describedBy={socialsReady ? undefined : 'social-pending-note'}
+              />
+              <p>{telegramReady ? copy.community.telegramNote : 'Link pending'}</p>
             </div>
-            <div className={xReady ? 'shell' : 'shell is-pending'}>
-              <ShellFrame />
-              <div className="shell-body">
-                <XIcon />
-                <PendingLink
-                  url={project.xUrl}
-                  label={copy.community.x}
-                  pendingLabel={copy.community.xPending}
-                  className="btn btn-gold"
-                  describedBy={socialsReady ? undefined : 'social-pending-note'}
+            <div className={xReady ? 'reef-social' : 'reef-social is-pending'}>
+              <div className="reef-shell">
+                <img
+                  src="/assets/community/selfish-community-social-shell.png"
+                  alt=""
+                  width={512}
+                  height={512}
+                  decoding="async"
+                  loading="lazy"
+                  aria-hidden="true"
                 />
-                <p>{copy.community.xNote}</p>
+                <span className="reef-mark">
+                  <XIcon />
+                </span>
               </div>
+              <PendingLink
+                url={project.xUrl}
+                label={copy.community.x}
+                pendingLabel={copy.community.x}
+                className="btn btn-gold"
+                describedBy={socialsReady ? undefined : 'social-pending-note'}
+              />
+              <p>{xReady ? copy.community.xNote : 'Link pending'}</p>
             </div>
           </div>
         </div>
         {socialsReady ? null : (
-          <p id="social-pending-note" className="pending-note social-note">
+          <p id="social-pending-note" className="pending-note reef-pending">
             {copy.community.socialPending}
           </p>
         )}
@@ -78,9 +100,7 @@ export function Community() {
           </p>
         ) : null}
         <StickerGallery />
-        <p className="closing">{copy.community.closing}</p>
       </div>
-      <WaveDivider tone="deep" />
     </section>
   )
 }

@@ -1,74 +1,134 @@
+import { useEffect, useState } from 'react'
 import { project } from '../config/project.ts'
-import { canBuy, displayAddress } from '../config/links.ts'
+import { canBuy, displayAddress, isValidAddress, isValidHttpsUrl } from '../config/links.ts'
 import { copy } from '../content/copy.ts'
 import { FAQ } from '../components/FAQ.tsx'
-import { ReefFrame, WaveDivider } from '../components/OceanScene.tsx'
-import { stickerSrc } from '../data/stickers.ts'
 import { PendingLink } from '../components/PendingLink.tsx'
-import { ChecklistIcon, EthIcon, GogglesIcon, SwapIcon } from '../components/SceneArt.tsx'
 
-const icons = [GogglesIcon, EthIcon, ChecklistIcon, SwapIcon]
+const stepIcons = [
+  '/assets/how-to-buy/selfish-how-to-buy-step-wallet.png',
+  '/assets/how-to-buy/selfish-how-to-buy-step-eth.png',
+  '/assets/how-to-buy/selfish-how-to-buy-step-verify.png',
+  '/assets/how-to-buy/selfish-how-to-buy-step-swap.png',
+]
+
+type CopyState = 'idle' | 'copied' | 'failed'
 
 export function HowToBuy() {
   const buyingReady = canBuy()
+  const addressReady = isValidAddress(project.contractAddress)
+  const address = displayAddress()
+  const [copyState, setCopyState] = useState<CopyState>('idle')
+
+  useEffect(() => {
+    if (copyState !== 'copied') return
+    const timer = window.setTimeout(() => setCopyState('idle'), 2000)
+    return () => window.clearTimeout(timer)
+  }, [copyState])
+
+  const copyMessage =
+    copyState === 'copied' ? copy.howToBuy.copied : copyState === 'failed' ? copy.howToBuy.copyFailed : ''
+
+  const onCopy = async () => {
+    if (!isValidAddress(project.contractAddress)) return
+    try {
+      await navigator.clipboard.writeText(project.contractAddress)
+      setCopyState('copied')
+    } catch {
+      setCopyState('failed')
+    }
+  }
+
   return (
     <section className="section section-dive" id="how-to-buy" aria-labelledby="how-to-buy-heading">
-      <ReefFrame />
-      <div className="wrap">
+      <picture>
+        <source media="(max-width: 760px)" srcSet="/assets/how-to-buy/selfish-how-to-buy-ocean-mobile.webp" />
+        <img
+          className="dive-ocean"
+          src="/assets/how-to-buy/selfish-how-to-buy-ocean-desktop.webp"
+          alt=""
+          width={1672}
+          height={941}
+          decoding="async"
+          loading="lazy"
+          aria-hidden="true"
+        />
+      </picture>
+      <div className="dive-shade" aria-hidden="true" />
+      <div className="dive-wrap">
         <div className="dive-head">
-          <div>
-            <h2 id="how-to-buy-heading" className="display" tabIndex={-1}>
-              {copy.howToBuy.titleLead}
-              <span className="gold">{copy.howToBuy.titleGold}</span>
+          <div className="dive-copy">
+            <p className="dive-kicker">HOW TO BUY</p>
+            <h2 id="how-to-buy-heading" className="dive-title" tabIndex={-1}>
+              <span>YOUR</span>
+              <span className="dive-gold">DIVE PLAN.</span>
             </h2>
-            <p className="lede">{copy.howToBuy.intro}</p>
+            <p className="dive-intro">{copy.howToBuy.intro}</p>
           </div>
           <img
-            className="dive-whale whale-float"
-            src={stickerSrc('009-selfish-smug.png')}
-            alt=""
-            width={512}
-            height={512}
+            className="dive-whale"
+            src="/assets/how-to-buy/selfish-how-to-buy-whale-guide.png"
+            alt="SELLFISH whale guide"
+            width={900}
+            height={700}
             decoding="async"
             loading="lazy"
           />
         </div>
-        <ol className="steps">
-          {copy.howToBuy.steps.map((step, index) => {
-            const Icon = icons[index]
-            return (
-              <li key={step.title}>
-                <span className="step-index" aria-hidden="true">
-                  {index + 1}
-                </span>
-                <span className="step-icon" aria-hidden="true">
-                  <Icon />
-                </span>
+        <ol className="dive-steps">
+          {copy.howToBuy.steps.map((step, index) => (
+            <li key={step.title}>
+              <span className="dive-num" aria-hidden="true">
+                {index + 1}
+              </span>
+              <img
+                className="dive-icon"
+                src={stepIcons[index]}
+                alt=""
+                width={512}
+                height={512}
+                decoding="async"
+                loading="lazy"
+                aria-hidden="true"
+              />
+              <div className="dive-step-copy">
                 <h3>{step.title}</h3>
-                {'body' in step ? <p>{step.body}</p> : null}
-                {'before' in step ? (
-                  <p>
-                    {step.before} <code className="address">{displayAddress()}</code>
-                  </p>
+                <p>{step.body}</p>
+                {index === 2 ? (
+                  <div className="dive-contract">
+                    <p className="dive-address">{address}</p>
+                    <button
+                      type="button"
+                      className="btn btn-ghost"
+                      disabled={!addressReady}
+                      onClick={() => {
+                        void onCopy()
+                      }}
+                    >
+                      {copy.howToBuy.copy}
+                    </button>
+                    <p className="copy-status" aria-live="polite">
+                      {copyMessage}
+                    </p>
+                  </div>
                 ) : null}
-              </li>
-            )
-          })}
+              </div>
+            </li>
+          ))}
         </ol>
-        <div className="buy-note copy-panel">
-          <p id="howto-buy-note">{buyingReady ? copy.buying.ready : copy.buying.pending}</p>
+        <div className="dive-buy">
+          <p id="howto-buy-note">{buyingReady ? copy.buying.ready : copy.howToBuy.buyPending}</p>
           <PendingLink
             url={project.buyUrl}
-            enabled={buyingReady}
-            label={copy.hero.buy}
-            pendingLabel={copy.hero.buyPending}
+            enabled={buyingReady && isValidHttpsUrl(project.buyUrl)}
+            label={copy.howToBuy.buy}
+            pendingLabel={copy.howToBuy.buy}
             className={buyingReady ? 'btn btn-gold btn-wide' : 'btn btn-muted btn-wide'}
             describedBy="howto-buy-note"
           />
         </div>
         <FAQ />
       </div>
-      <WaveDivider tone="deep" />
     </section>
   )
 }

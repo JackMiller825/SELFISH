@@ -8,6 +8,8 @@ import './styles/sections.css'
 import './styles/home.css'
 import './styles/story.css'
 import './styles/tokenomics.css'
+import './styles/howto.css'
+import './styles/community.css'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
