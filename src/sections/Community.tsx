@@ -1,3 +1,4 @@
+import { trackCta } from '../analytics/tracker.ts'
 import { project } from '../config/project.ts'
 import { isValidHttpsUrl } from '../config/links.ts'
 import { copy } from '../content/copy.ts'
@@ -55,6 +56,7 @@ export function Community() {
                 label={copy.community.telegram}
                 pendingLabel={copy.community.telegram}
                 className="btn btn-gold"
+                onActivate={() => trackCta('telegram')}
               />
               <p>{copy.community.telegramNote}</p>
             </div>
@@ -78,6 +80,7 @@ export function Community() {
                 label={copy.community.x}
                 pendingLabel={copy.community.x}
                 className="btn btn-gold"
+                onActivate={() => trackCta('x')}
               />
               <p>{copy.community.xNote}</p>
             </div>

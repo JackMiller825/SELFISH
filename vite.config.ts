@@ -1,7 +1,7 @@
-import { readFileSync } from 'node:fs'
+import { copyFileSync, existsSync, readFileSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
 import react from '@vitejs/plugin-react'
-import { defineConfig, type Plugin } from 'vite'
+import { defineConfig, type Plugin, type ViteDevServer } from 'vite'
 
 const DESCRIPTION =
   'Meet SELLFISH, the selfish whale of Ethereum: a friendly grin, a secret sell, and an ocean of memes. Explore the story, token details, and reaction stickers.'
@@ -19,6 +19,34 @@ function readSiteOrigin(): string | null {
     return url.origin
   } catch {
     return null
+  }
+}
+
+function pagesFallback(): Plugin {
+  return {
+    name: 'pages-fallback',
+    apply: 'build',
+    closeBundle() {
+      const index = 'dist/index.html'
+      if (existsSync(index)) copyFileSync(index, 'dist/404.html')
+    },
+  }
+}
+
+function dashboardApi(): Plugin {
+  return {
+    name: 'selfish-dashboard-api',
+    async configureServer(server) {
+      try {
+        const loaded = (await server.ssrLoadModule('/server/attach.ts')) as {
+          attachApi: (target: ViteDevServer) => Promise<void>
+        }
+        await loaded.attachApi(server)
+      } catch (error) {
+        const message = error instanceof Error ? error.message : 'unknown error'
+        console.error(`Dashboard API did not start. The public site is still available. ${message}`)
+      }
+    },
   }
 }
 
@@ -67,5 +95,5 @@ function sellfishSeo(): Plugin {
 }
 
 export default defineConfig({
-  plugins: [react(), sellfishSeo()],
+  plugins: [react(), dashboardApi(), sellfishSeo(), pagesFallback()],
 })

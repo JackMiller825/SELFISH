@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { trackCta } from '../analytics/tracker.ts'
 import { isValidHttpsUrl } from '../config/links.ts'
 import { project } from '../config/project.ts'
 import { navItems, type SectionId } from '../content/nav.ts'
@@ -9,11 +10,13 @@ function SocialMark({
   label,
   pendingLabel,
   icon,
+  click,
 }: {
   url: string | null
   label: string
   pendingLabel: string
   icon: string
+  click: 'x' | 'telegram'
 }) {
   const glyph = (
     <span
@@ -27,7 +30,7 @@ function SocialMark({
   )
   if (isValidHttpsUrl(url)) {
     return (
-      <a className="footer-icon" href={url} target="_blank" rel="noopener noreferrer" aria-label={label}>
+      <a className="footer-icon" href={url} target="_blank" rel="noopener noreferrer" aria-label={label} onClick={() => trackCta(click)}>
         {glyph}
         <span className="visually-hidden"> (opens in a new tab)</span>
       </a>
@@ -93,12 +96,14 @@ export function Footer() {
           label="X"
           pendingLabel="X link pending"
           icon="/assets/icons/x.svg"
+          click="x"
         />
         <SocialMark
           url={project.telegramUrl}
           label="Telegram"
           pendingLabel="Telegram link pending"
           icon="/assets/icons/telegram.svg"
+          click="telegram"
         />
       </div>
     </footer>

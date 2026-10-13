@@ -7,6 +7,7 @@ type PendingLinkProps = {
   pendingLabel: string
   className?: string
   describedBy?: string
+  onActivate?: () => void
 }
 
 export function PendingLink({
@@ -16,10 +17,11 @@ export function PendingLink({
   pendingLabel,
   className = 'btn btn-primary',
   describedBy,
+  onActivate,
 }: PendingLinkProps) {
   if (enabled && isValidHttpsUrl(url)) {
     return (
-      <a className={className} href={url} target="_blank" rel="noopener noreferrer">
+      <a className={className} href={url} target="_blank" rel="noopener noreferrer" onClick={onActivate}>
         {label}
         <span className="visually-hidden"> (opens in a new tab)</span>
       </a>

@@ -6,7 +6,7 @@ The joke is a meme about selfish trading. The site does not promise buyers, pric
 
 ## Stack
 
-Vite, React, and TypeScript, with plain CSS. There is no router, wallet connection, market feed, analytics, or backend.
+Vite, React, and TypeScript, with plain CSS. There is no router, wallet connection, or market feed. Visitor counts run through a separate Node server. GitHub Pages only serves the static site.
 
 ```sh
 npm install
@@ -15,6 +15,9 @@ npm run build
 npm run preview
 npm run lint
 npm run typecheck
+npm run test
+npm run setup
+npm start
 ```
 
 `build` runs `tsc -b && vite build`. `typecheck` runs `tsc -b --pretty false`. Output is `dist/`.
@@ -76,7 +79,19 @@ GitHub Pages is the selected host so the site can be published at `selfish.websi
 - Workflow: `.github/workflows/pages.yml`
 - Custom domain file: `public/CNAME` (`selfish.website`)
 - Site base path: `/`, because the custom domain serves the site root
-- No environment secrets are required
+- No environment secrets are required for the public Pages site
+
+## Visitor dashboard
+
+The public page sends a page view when it loads and a heartbeat every 30 seconds while the tab is visible. People who send a Do Not Track or Global Privacy Control signal are not recorded. The private dashboard is at `/dashboard` and refreshes every 10 seconds. On https://selfish.website it calls `https://selfish.103.161.35.238.sslip.io`. Local development uses the same origin.
+
+The server needs Node 24. `DASHBOARD_PASSWORD` is read once, stored as a hash in `data/analytics.sqlite`, and is not committed. `data/secrets.json` is generated on setup and is not committed.
+
+```bash
+npm run setup
+npm run build
+npm start
+```
 
 The visitor site is `/` plus hash anchors (`#home`, `#story`, `#tokenomics`, `#how-to-buy`, `#community`). Missing asset requests should 404. They should not be rewritten to `index.html`.
 

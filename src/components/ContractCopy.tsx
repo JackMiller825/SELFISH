@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { project } from '../config/project.ts'
 import { displayAddress } from '../config/links.ts'
 import { copy } from '../content/copy.ts'
+import { trackCta } from '../analytics/tracker.ts'
 import { copyText } from '../lib/copyText.ts'
 import { PendingLink } from './PendingLink.tsx'
 
@@ -41,6 +42,7 @@ export function ContractCopy() {
           label={copy.tokenomics.chart}
           pendingLabel={copy.tokenomics.chart}
           className="btn btn-ghost"
+          onActivate={() => trackCta('chart')}
         />
       </div>
       <p className="copy-status" aria-live="polite">
