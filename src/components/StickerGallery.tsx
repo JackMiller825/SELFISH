@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from 'react'
-import { STICKER_PREVIEW_SHEET_PATH } from '../config/project.ts'
 import { stickerPackHref, usingChatStickerPack } from '../config/links.ts'
 import { copy } from '../content/copy.ts'
 import { communityStickerSrc, stickers, type Sticker } from '../data/stickers.ts'
@@ -108,10 +107,6 @@ export function StickerGallery() {
         ) : null}
         <a className="btn btn-gold" href={usingChatStickerPack() ? '/downloads/selfish-20-stickers.zip' : stickerPackHref()} download>
           {copy.community.downloadPack}
-        </a>
-        <p>{usingChatStickerPack() ? copy.community.packNote : copy.community.fullArchiveNote}</p>
-        <a className="text-link" href={STICKER_PREVIEW_SHEET_PATH} download>
-          {copy.community.preview}
         </a>
       </div>
       <dialog

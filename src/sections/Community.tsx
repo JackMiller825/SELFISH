@@ -8,7 +8,6 @@ import { StickerGallery } from '../components/StickerGallery.tsx'
 export function Community() {
   const telegramReady = isValidHttpsUrl(project.telegramUrl)
   const xReady = isValidHttpsUrl(project.xUrl)
-  const socialsReady = telegramReady && xReady
   return (
     <section className="section section-reef" id="community" aria-labelledby="community-heading">
       <picture>
@@ -56,9 +55,8 @@ export function Community() {
                 label={copy.community.telegram}
                 pendingLabel={copy.community.telegram}
                 className="btn btn-gold"
-                describedBy={socialsReady ? undefined : 'social-pending-note'}
               />
-              <p>{telegramReady ? copy.community.telegramNote : 'Link pending'}</p>
+              <p>{copy.community.telegramNote}</p>
             </div>
             <div className={xReady ? 'reef-social' : 'reef-social is-pending'}>
               <div className="reef-shell">
@@ -80,17 +78,11 @@ export function Community() {
                 label={copy.community.x}
                 pendingLabel={copy.community.x}
                 className="btn btn-gold"
-                describedBy={socialsReady ? undefined : 'social-pending-note'}
               />
-              <p>{xReady ? copy.community.xNote : 'Link pending'}</p>
+              <p>{copy.community.xNote}</p>
             </div>
           </div>
         </div>
-        {socialsReady ? null : (
-          <p id="social-pending-note" className="pending-note reef-pending">
-            {copy.community.socialPending}
-          </p>
-        )}
         {isValidHttpsUrl(project.telegramStickerPackUrl) ? (
           <p className="pack-link">
             <a href={project.telegramStickerPackUrl} target="_blank" rel="noopener noreferrer">

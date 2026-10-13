@@ -1,10 +1,7 @@
 import { project } from '../config/project.ts'
-import { canBuy } from '../config/links.ts'
 import { copy } from '../content/copy.ts'
-import { PendingLink } from '../components/PendingLink.tsx'
 
 export function Hero() {
-  const buyingReady = canBuy()
   return (
     <section className="section section-hero" id="home" aria-labelledby="home-heading">
       <picture className="home-ocean" aria-hidden="true">
@@ -61,23 +58,10 @@ export function Hero() {
               {copy.hero.dive}
               <span aria-hidden="true"> ↓</span>
             </a>
-            <PendingLink
-              url={project.buyUrl}
-              enabled={buyingReady}
-              label={copy.hero.buy}
-              pendingLabel={copy.hero.buyPending}
-              className={buyingReady ? 'btn btn-gold' : 'btn btn-muted'}
-              describedBy={buyingReady ? undefined : 'hero-buy-note'}
-            />
             <a className="btn btn-ghost home-details" href="#tokenomics">
               {copy.hero.details}
             </a>
           </div>
-          {buyingReady ? null : (
-            <p id="hero-buy-note" className="home-note">
-              {copy.buying.pending}
-            </p>
-          )}
         </div>
         <div className="home-scene">
           <img

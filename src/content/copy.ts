@@ -67,11 +67,11 @@ export const copy = {
     networkLabel: 'Network',
     contractLabel: 'Contract address',
     copy: 'Copy',
-    copied: 'Copied!',
+    copied: 'Copied',
     copyFailed: 'Could not copy. Select and copy the address below.',
     copyUnavailable: 'Copy is unavailable until a confirmed contract address is supplied.',
-    chart: 'View chart',
-    chartPending: 'Chart — link pending',
+    chart: 'Chart',
+    chartPending: 'Chart',
     chartNote: 'An official chart link has not been confirmed.',
   },
   howToBuy: {
@@ -81,7 +81,7 @@ export const copy = {
     buy: 'Buy $SELFISH',
     buyPending: 'Official buy link pending',
     copy: 'Copy address',
-    copied: 'Copied!',
+    copied: 'Copied',
     copyFailed: 'Could not copy. Select and copy the address below.',
     steps: [
       {

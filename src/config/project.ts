@@ -39,14 +39,14 @@ export const project: ProjectConfig = {
   network: 'Ethereum mainnet',
   chainId: 1,
   contractAddress: null,
-  totalSupply: null,
-  buySellTax: null,
-  liquidityStatus: null,
-  ownershipStatus: null,
+  totalSupply: '1,000,000,000',
+  buySellTax: '0%',
+  liquidityStatus: 'Burn',
+  ownershipStatus: 'Renounce',
   buyUrl: null,
   chartUrl: null,
-  telegramUrl: null,
-  xUrl: null,
+  telegramUrl: 'https://t.me/selfish9891',
+  xUrl: 'https://x.com/selfish9891',
   telegramStickerPackUrl: null,
   siteUrl: 'https://selfish.website',
   fullStickerArchivePath: null,
@@ -55,4 +55,4 @@ export const project: ProjectConfig = {
 export const CHAT_STICKER_PACK_PATH = '/downloads/selfish-chat-stickers.zip'
 export const STICKER_PREVIEW_SHEET_PATH = '/downloads/selfish-20-stickers-preview.png'
 export const TOKENOMICS_PLACEHOLDER = '[TOKENOMICS]'
-export const CONTRACT_PLACEHOLDER = '[CONTRACT_ADDRESS]'
+export const CONTRACT_PLACEHOLDER = 'Coming Soon..'

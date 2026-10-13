@@ -298,8 +298,7 @@
     grid-template-columns: minmax(0, 0.42fr) minmax(0, 0.58fr);
     grid-template-areas:
       "copy vault"
-      "network vault"
-      "network contract";
+      "contract vault";
     column-gap: 28px;
     row-gap: 16px;
     align-items: start;

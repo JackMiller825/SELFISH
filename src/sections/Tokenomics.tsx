@@ -1,5 +1,5 @@
 import { project } from '../config/project.ts'
-import { allFactsConfigured, configuredText } from '../config/links.ts'
+import { configuredText } from '../config/links.ts'
 import { copy } from '../content/copy.ts'
 import { ContractCopy } from '../components/ContractCopy.tsx'
 
@@ -38,8 +38,6 @@ export function Tokenomics() {
             <span>OPEN THE</span>
             <span className="token-gold">SUNKEN VAULT.</span>
           </h2>
-          <p className="token-hook">{copy.tokenomics.hook}</p>
-          <p className="token-body">{allFactsConfigured() ? copy.tokenomics.ready : copy.tokenomics.pending}</p>
         </div>
         <div className="vault-stage">
           <div className="vault-frame">
@@ -82,11 +80,6 @@ export function Tokenomics() {
           </div>
         </div>
         <ContractCopy />
-        <p className="token-network">
-          <span className="eth-mark" aria-hidden="true" />
-          <span>{copy.tokenomics.networkLabel}:</span>
-          <strong>{project.network}</strong>
-        </p>
       </div>
     </section>
   )
